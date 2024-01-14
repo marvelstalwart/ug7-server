@@ -1,5 +1,6 @@
 import { Request, Response } from "express"
 import { addSong, getDailySongs, retrieveRandomSongs } from "./songs.mongo"
+import { deleteAllSongs } from "./songs.mongo"
 import dailysongsModel, { ISongModel } from "../models/dailysongs.model"
 
 export const HttpUploadSongsFromPlaylist= async  (req: Request,res: Response)=> {
@@ -8,6 +9,9 @@ export const HttpUploadSongsFromPlaylist= async  (req: Request,res: Response)=> 
     try {
         if (songs) {
 
+            // Clear out DB
+            await deleteAllSongs()
+            // Reupload new entries
         const promises = songs.map(async (song: any)=> await addSong(song))
             await Promise.all(promises)
             return res.status(200).json(" Successfully uploaded songs!")
