@@ -124,7 +124,18 @@ export async function deleteDailySongs(): Promise<any>{
     }
     catch(err){
         throw new Error (
-        "There was an error deleting all songs !"
+        "There was an error deleting daily songs !"
+        )
+    }
+}
+
+export async function deleteAllSongs() {
+    try {
+        return await songModel.deleteMany()
+    }
+    catch(err){
+        throw new Error (
+            "There was an error deleting all songs"
         )
     }
 }
