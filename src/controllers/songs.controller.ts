@@ -10,7 +10,7 @@ export const HttpUploadSongsFromPlaylist= async  (req: Request,res: Response)=> 
         if (songs) {
 
             // Clear out DB
-            await deleteAllSongs()
+            // await deleteAllSongs()
             // Reupload new entries
         const promises = songs.map(async (song: any)=> await addSong(song))
             await Promise.all(promises)
