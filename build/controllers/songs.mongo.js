@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteDailySongs = exports.addDailySong = exports.getDailySongs = exports.addLoadedSong = exports.retrieveRandomSongs = exports.addSong = void 0;
+exports.deleteAllSongs = exports.deleteDailySongs = exports.addDailySong = exports.getDailySongs = exports.addLoadedSong = exports.retrieveRandomSongs = exports.addSong = void 0;
 const loadedsongs_model_1 = __importDefault(require("../models/loadedsongs.model"));
 const dailysongs_model_1 = __importDefault(require("../models/dailysongs.model"));
 const song_model_1 = __importDefault(require("../models/song.model"));
@@ -117,8 +117,19 @@ function deleteDailySongs() {
             return yield dailysongs_model_1.default.deleteMany();
         }
         catch (err) {
-            throw new Error("There was an error deleting all songs !");
+            throw new Error("There was an error deleting daily songs !");
         }
     });
 }
 exports.deleteDailySongs = deleteDailySongs;
+function deleteAllSongs() {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            return yield song_model_1.default.deleteMany();
+        }
+        catch (err) {
+            throw new Error("There was an error deleting all songs");
+        }
+    });
+}
+exports.deleteAllSongs = deleteAllSongs;

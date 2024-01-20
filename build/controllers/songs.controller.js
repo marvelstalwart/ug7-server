@@ -15,6 +15,9 @@ const HttpUploadSongsFromPlaylist = (req, res) => __awaiter(void 0, void 0, void
     const songs = req.body;
     try {
         if (songs) {
+            // Clear out DB
+            // await deleteAllSongs()
+            // Reupload new entries
             const promises = songs.map((song) => __awaiter(void 0, void 0, void 0, function* () { return yield (0, songs_mongo_1.addSong)(song); }));
             yield Promise.all(promises);
             return res.status(200).json(" Successfully uploaded songs!");

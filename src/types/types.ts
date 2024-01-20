@@ -9,4 +9,6 @@ export interface ISong {
 
 
 }
-
+export interface TDailySong extends ISong {
+    totalSaves: number
+}
