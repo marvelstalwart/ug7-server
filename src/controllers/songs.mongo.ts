@@ -3,7 +3,7 @@ import loadedsongsModel from "../models/loadedsongs.model";
 import dailysongsModel from "../models/dailysongs.model";
 import songModel from "../models/song.model";
 import { ISong } from "../types/types";
-import { ISongModel } from "../models/dailysongs.model";
+import { IDailySongModel } from "../models/dailysongs.model";
 
 // Upload new song from the playlist to the song collection
 export async function addSong(song: ISong) {
@@ -88,7 +88,7 @@ export async function addLoadedSong(song: any[]) {
 
 // Retrieve the daily songs 
 
-export async function getDailySongs(): Promise<ISongModel[]|[] > {
+export async function getDailySongs(): Promise<IDailySongModel[]|[] > {
     try {
 
         const dailySongs = await dailysongsModel.find()
@@ -103,7 +103,7 @@ export async function getDailySongs(): Promise<ISongModel[]|[] > {
 
 // Add a new song to the daily songs collection
 
-export async function addDailySong(song:any): Promise<ISongModel> {
+export async function addDailySong(song:any): Promise<IDailySongModel> {
         try {
         
                 const newSong =  new dailysongsModel(song)
@@ -129,6 +129,22 @@ export async function deleteDailySongs(): Promise<any>{
     }
 }
 
+export async function updateDailySongs (id: string) : Promise<IDailySongModel | null> {
+    try {
+           const updatedDocument = await dailysongsModel.findByIdAndUpdate(id, {
+               $inc: {totalSaves: 1}
+            })
+            if (!updatedDocument) {
+                throw new Error("Document not found");
+            }
+            return updatedDocument
+    }
+    catch{
+            throw new Error(
+                "There was an error updating songs model"
+            )
+    }
+}
 export async function deleteAllSongs() {
     try {
         return await songModel.deleteMany()

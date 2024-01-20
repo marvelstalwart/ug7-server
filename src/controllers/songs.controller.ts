@@ -1,7 +1,7 @@
 import { Request, Response } from "express"
-import { addSong, getDailySongs, retrieveRandomSongs } from "./songs.mongo"
+import { addSong, getDailySongs, retrieveRandomSongs, updateDailySongs } from "./songs.mongo"
 import { deleteAllSongs } from "./songs.mongo"
-import dailysongsModel, { ISongModel } from "../models/dailysongs.model"
+import dailysongsModel, { IDailySongModel } from "../models/dailysongs.model"
 
 export const HttpUploadSongsFromPlaylist= async  (req: Request,res: Response)=> {
     const songs = req.body
@@ -43,7 +43,19 @@ export const HttpRetrieveRandomSongs = async (req: Request, res: Response)=> {
 
 }
 
+export const HttpUpdateDailySongs = async (req: Request, res: Response) => {
+            const {songIds} = req.body
+            try {
+                for (const songId of songIds) {
+                        await updateDailySongs(songId)
+                }
 
+            }
+            catch (err) {
+                    res.status(400).json("An error occured while updating songs!")
+            }
+
+}
 
 export const HttpGetDailySongs = async (_:Request,res: Response) :Promise<any>=>{
         try {

@@ -1,7 +1,7 @@
 import mongoose, {Schema} from "mongoose";
-import { ISong } from "../types/types";
+import { TDailySong } from "../types/types";
 
-export interface ISongModel extends ISong, Document{}
+export interface IDailySongModel extends TDailySong, Document{}
 
 
 const dailySongsSchema = new Schema ({
@@ -11,8 +11,9 @@ const dailySongsSchema = new Schema ({
     duration_ms: {type: Number},
     id: {type: String},
     preview_url: {type: String, required: true},
-    uri: {type: String, required: true}
+    uri: {type: String, required: true},
+    totalSaves: {type: Number, required: true, default: 0}
 
-})
+}) 
 
-export default mongoose.model<ISongModel>('dailysongs', dailySongsSchema)
+export default mongoose.model<IDailySongModel>('dailysongs', dailySongsSchema)
