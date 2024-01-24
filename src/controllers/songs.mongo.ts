@@ -16,7 +16,7 @@ export async function addSong(song: ISong) {
 
             }
             catch(err) {
-                console.error(err)
+                throw new Error ("An error occured while adding songs!")
             }
 }
 

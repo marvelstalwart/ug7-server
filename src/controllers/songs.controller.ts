@@ -49,7 +49,7 @@ export const HttpUpdateDailySongs = async (req: Request, res: Response) => {
                 for (const songId of songIds) {
                         await updateDailySongs(songId)
                 }
-
+                res.status(200).json("Successfully updated songs!");
             }
             catch (err) {
                     res.status(400).json("An error occured while updating songs!")
